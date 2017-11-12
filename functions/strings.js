@@ -27,9 +27,32 @@ const facebookDoc = [
   }
 ]
 
-const slackDoc = {
-
-}
+const slackDoc = [
+  {
+    "category": "node",
+    "suggestion": "Node.js",
+    "steps": [
+      "Each bot needs its own API key for tracking. Click the link below to create an unique API key for your project.",
+      "I need you to install NPM next. Navigate to the project directory in your temrinal and type 'npm install --save dashbot'.",
+      "After NPM completes installing, include Dashbot in your main JS file so I can get access. Add this following line to the top of your file: 'const dashbot = require('dashbot')(DASHBOT_API_KEY_FROM_STEP_ONE).facebook'.",
+      "When you first connect to slack with the request function, tell dashbot and save the bot and team locally by adding this line of code in the request function: 'dashbot.logConnect(parsedData)'.",
+      "When you receive a message on the websocket, tell Dashbot by calling 'dashbot.logIncoming(bot, team, parsedMessage)' within connection.on().",
+      "And whenever you reply on the websocket, tell Dashbot by calling 'dashbot.logOutgoing(bot, team, reply)'."
+    ],
+    "stepsPrefix": "Okay, here's the next step for Node.js integration."
+  },
+  {
+    "category": "botkit",
+    "suggestion": "Botkit",
+    "steps": [
+      "Each bot needs its own API key for tracking. Click the link below to create an unique API key for your project.",
+      "I need you to install NPM next. Navigate to the project directory in your temrinal and type 'npm install --save dashbot'.",
+      "After NPM completes installing, include Dashbot in your main JS file so I can get access. Add this following line to the top of your file: 'const dashbot = require('dashbot')(DASHBOT_API_KEY_FROM_STEP_ONE).facebook'.",
+      "After you create your botkit controller, simply add send and receive middleware like this: 'controller.middleware.receive.use(dashbot.receive); controller.middleware.send.use(dashbot.send)'."
+    ],
+    "stepsPrefix": "Okay, here's the next step for Botkit integration."
+  }
+]
 
 const content = {
   "link": "https://www.dashbot.io/bots"

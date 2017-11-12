@@ -55,7 +55,7 @@ const tellFacebook = (app) => {
   const parameter = Parameters.FACEBOOKPLATFORM
   const platformCategory = app.getArgument(parameter)
   console.log('params is ', platformCategory)
-  
+
   const facts = data.facts.content
   for (const category of strings.facebookDoc) {
     // Initialize categories with all the facts if they haven't been read
@@ -78,9 +78,28 @@ const tellFacebook = (app) => {
 
 const tellSlack = (app) => {
   const data = initData(app)
-  console.log('HELLO FROM TELLSLACK')
-  const msg = 'Hello form tellslack'
-  app.ask(msg)
+  const data = initData(app)
+  const parameter = Parameters.SLACKPLATFORM
+  const platformCategory = app.getArgument(parameter)
+
+  const facts = data.facts.content
+  for (const category of strings.facebookDoc) {
+    // Initialize categories with all the facts if they haven't been read
+    if (!facts[category.category]) {
+      facts[category.category] = category.steps.slice()
+    }
+  }
+
+  if (!data.facts.steps) {
+    if (platformCategory === 'node') {
+      data.facts.steps = strings.facebookDoc[0].steps.slice()
+    }
+    data.facts.steps = strings.facebookDoc[1].steps.slice()
+  }
+  console.log('LOOK HERE => ', data)
+
+  const instruction = getInstructions(data.facts.steps)
+  app.ask(instruction)
 }
 
 const actionMap = new Map()
