@@ -28,7 +28,7 @@ const facebookDoc = [
 ]
 
 const slackDoc = {
-  
+
 }
 
 const content = {
@@ -40,7 +40,7 @@ const transitions = {
 }
 
 const general = {
-
+  "heardItAll": "That's all the steps! If you run into any bugs, please let me know here."
 }
 
 module.exports = deepFreeze({

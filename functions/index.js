@@ -30,7 +30,7 @@ process.env.DEBUG = 'actions-on-google:*'
 
 const getRandomValue = array => array[0]
 
-const getRandomFact = instructions => {
+const getInstructions = instructions => {
   if (!instructions.length) {
     return null
   }
@@ -52,17 +52,34 @@ const initData = app => {
 }
 
 const tellFacebook = (app) => {
+  const parameter = Parameters.FACEBOOKPLATFORM
+  const platformCategory = app.getArgument(parameter)
   const data = initData(app)
+
+  const facts = data.facts.content
+  for (const category of strings.facebookDoc) {
+    // Initialize categories with all the facts if they haven't been read
+    if (!facts[category.category]) {
+      facts[category.category] = category.steps.slice()
+    }
+  }
+
+  // if (Object.values(facts).every(category => !category.length)) {
+  //   // If every fact category facts stored in app.data is empty
+  //   return app.tell(strings.general.heardItAll)
+  // }
+
   if (!data.facts.steps) {
-    data.facts.steps = strings.facebookDoc.slice()
+    if (platformCategory === 'npm') {
+      data.facts.steps = strings.facebookDoc[0].steps.slice()
+    }
+    data.facts.steps = strings.facebookDoc[1].steps.slice()
   }
   console.log('LOOK HERE => ', data)
 
-  const parameter = Parameters.FACEBOOKPLATFORM
-  const platformCategory = app.getArgument(parameter)
   console.log('params is ', platformCategory)
-  const fact = getRandomFact()
-  app.ask(strings.facebookDoc[0].steps)
+  const instruction = getInstructions(data.facts.steps)
+  app.ask(instruction)
 }
 
 const tellSlack = (app) => {
