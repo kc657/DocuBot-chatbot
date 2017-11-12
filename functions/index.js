@@ -13,6 +13,10 @@ const Contexts = {
   FACEBOOK: 'choose_facebook-followup'
 }
 
+const Parameters = {
+  PLATFORM: 'platform'
+}
+
 const Lifespans = {
   DEFAULT: 60,
   END: 0
@@ -31,12 +35,15 @@ const initData = app => {
   return data
 }
 
-
-
 const tellFacebook = (app) => {
   const data = initData(app)
   console.log(app)
   console.log(data)
+
+  const parameter = Parameters.PLATFORM
+  const platformCategory = app.getArgument(parameter)
+  console.log('params is ', platformCategory)
+
   const msg = 'HELLO WORLD FROM TELLFACEBOOK'
   app.ask(strings.facebookDoc[0].category)
 }
