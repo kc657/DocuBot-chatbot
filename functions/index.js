@@ -3,6 +3,7 @@ const functions = require('firebase-functions')
 const { sprintf } = require('sprintf-js')
 
 const config = require('./env.json')
+const strings = require('./strings')
 
 const Actions = {
   TELL_FACEBOOK: 'tell.facebook'
@@ -29,6 +30,8 @@ const initData = app => {
   console.log('data in initData is ', data)
   return data
 }
+
+
 
 const tellFacebook = (app) => {
   const data = initData(app)
