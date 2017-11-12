@@ -16,7 +16,6 @@ const Contexts = {
 }
 
 const Parameters = {
-  PLATFORM: 'platform',
   FACEBOOKPLATFORM: 'facebookPlatform',
   SLACKPLATFORM: 'slackPlatform'
 }
@@ -52,10 +51,11 @@ const initData = app => {
 }
 
 const tellFacebook = (app) => {
+  const data = initData(app)
   const parameter = Parameters.FACEBOOKPLATFORM
   const platformCategory = app.getArgument(parameter)
-  const data = initData(app)
-
+  console.log('params is ', platformCategory)
+  
   const facts = data.facts.content
   for (const category of strings.facebookDoc) {
     // Initialize categories with all the facts if they haven't been read
@@ -63,11 +63,6 @@ const tellFacebook = (app) => {
       facts[category.category] = category.steps.slice()
     }
   }
-
-  // if (Object.values(facts).every(category => !category.length)) {
-  //   // If every fact category facts stored in app.data is empty
-  //   return app.tell(strings.general.heardItAll)
-  // }
 
   if (!data.facts.steps) {
     if (platformCategory === 'npm') {
@@ -77,7 +72,6 @@ const tellFacebook = (app) => {
   }
   console.log('LOOK HERE => ', data)
 
-  console.log('params is ', platformCategory)
   const instruction = getInstructions(data.facts.steps)
   app.ask(instruction)
 }
