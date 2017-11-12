@@ -29,13 +29,11 @@ const Lifespans = {
 
 process.env.DEBUG = 'actions-on-google:*'
 
-const getRandomValue = array => array[0]
-
 const getInstructions = instructions => {
   if (!instructions.length) {
     return null
   }
-  const step = getRandomValue(instructions)
+  const step = instruction[0]
   // Delete the fact from the local data since we now already used it
   instructions.splice(instructions.indexOf(step), 1)
   return step
