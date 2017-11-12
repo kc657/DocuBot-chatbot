@@ -38,7 +38,7 @@ const tellFacebook = (app) => {
   console.log(app)
   console.log(data)
   const msg = 'HELLO WORLD FROM TELLFACEBOOK'
-  app.ask(msg)
+  app.ask(strings.facebookDoc[0].category)
 }
 
 const actionMap = new Map()
