@@ -3,6 +3,8 @@ const functions = require('firebase-functions')
 const { sprintf } = require('sprintf-js')
 
 const config = require('./env.json')
+const dashbot = require('dashbot')(config.DASHBOT_API_KEY).google
+
 const strings = require('./strings')
 
 const Actions = {
@@ -78,12 +80,11 @@ const tellFacebook = (app) => {
 
 const tellSlack = (app) => {
   const data = initData(app)
-  const data = initData(app)
   const parameter = Parameters.SLACKPLATFORM
   const platformCategory = app.getArgument(parameter)
 
   const facts = data.facts.content
-  for (const category of strings.facebookDoc) {
+  for (const category of strings.slackDoc) {
     // Initialize categories with all the facts if they haven't been read
     if (!facts[category.category]) {
       facts[category.category] = category.steps.slice()
@@ -92,9 +93,9 @@ const tellSlack = (app) => {
 
   if (!data.facts.steps) {
     if (platformCategory === 'node') {
-      data.facts.steps = strings.facebookDoc[0].steps.slice()
+      data.facts.steps = strings.slackDoc[0].steps.slice()
     }
-    data.facts.steps = strings.facebookDoc[1].steps.slice()
+    data.facts.steps = strings.slackDoc[1].steps.slice()
   }
   console.log('LOOK HERE => ', data)
 
@@ -109,8 +110,7 @@ actionMap.set(Actions.TELL_SLACK, tellSlack)
 const documentationDashbot
  = functions.https.onRequest((request, response) => {
    const app = new DialogflowApp({ request, response })
-  //  console.log(`Request headers: ${JSON.stringify(request.headers)}`)
-  //  console.log(`Request body: ${JSON.stringify(request.body)}`)
+   dashbot.configHandler(app)
    app.handleRequest(actionMap)
  })
 
