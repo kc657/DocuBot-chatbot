@@ -110,6 +110,7 @@ const inputUnknown = (app) => {
 
 const reportBug = (app) => {
   const data = initData(app)
+  app.setContext(Contexts.SLACK, Lifespans.END, {})
   const msg = "I see...anything else about this problem you can tell me about so we can fix it asap and get back to you."
   app.ask(msg)
 }
