@@ -12,7 +12,7 @@ const Actions = {
   TELL_SLACK: 'tell.slack',
   INPUT_UNKNOWN: 'input.unknown',
   REPORT_BUG: 'report.bug',
-  BUG_FOLLOWUP: 'found_bug.found_bug-fallback'
+  BUG_FOLLOWUP: 'found_bug.found_bug-yes'
 }
 
 const Contexts = {
@@ -112,16 +112,18 @@ const inputUnknown = (app) => {
 
 const reportBug = (app) => {
   const data = initData(app)
+  console.log('DATA -> ', data)
   app.setContext(Contexts.SLACK, Lifespans.END, {})
   app.setContext(Contexts.FACEBOOK, Lifespans.END, {})
   app.setContext(Contexts.BUG, Lifespans.DEFAULT, {})
-  const msg = "I see...anything else about this problem you can tell me about so we can fix it asap and get back to you."
+  const msg = "Do you want me to file a github issue with the information from this conversation?"
   app.ask(msg)
 }
 
 const bugFollowup = (app) => {
+  console.log(app);
   const data = initData(app)
-  console.log('DATA -> ', app)
+  console.log('DATA -> ', data)
   const msg = "Thank you! I will find a solution asap"
   app.ask(msg)
 }
