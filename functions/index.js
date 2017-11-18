@@ -11,7 +11,8 @@ const Actions = {
   TELL_FACEBOOK: 'tell.facebook',
   TELL_SLACK: 'tell.slack',
   INPUT_UNKNOWN: 'input.unknown',
-  REPORT_BUG: 'report.bug'
+  REPORT_BUG: 'report.bug',
+  BUG_FOLLOWUP: 'found_bug.found_bug-fallback'
 }
 
 const Contexts = {
@@ -25,7 +26,7 @@ const Parameters = {
 }
 
 const Lifespans = {
-  DEFAULT: 60,
+  DEFAULT: 15 ,
   END: 0
 }
 
@@ -115,11 +116,17 @@ const reportBug = (app) => {
   app.ask(msg)
 }
 
+const bugFollowup = (app) => {
+  const data = initData(app)
+  console.log(app)
+}
+
 const actionMap = new Map()
 actionMap.set(Actions.TELL_FACEBOOK, tellFacebook)
 actionMap.set(Actions.TELL_SLACK, tellSlack)
 actionMap.set(Actions.INPUT_UNKNOWN, inputUnknown)
 actionMap.set(Actions.REPORT_BUG, reportBug)
+actionMap.set(Actions.BUG_FOLLOWUP, bugFollowup)
 
 const documentationDashbot
  = functions.https.onRequest((request, response) => {
