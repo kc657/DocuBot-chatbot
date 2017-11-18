@@ -17,7 +17,8 @@ const Actions = {
 
 const Contexts = {
   FACEBOOK: 'choose_facebook-followup',
-  SLACK: 'choose_slack-followup'
+  SLACK: 'choose_slack-followup',
+  BUG: 'found_bug-followup'
 }
 
 const Parameters = {
@@ -112,13 +113,17 @@ const inputUnknown = (app) => {
 const reportBug = (app) => {
   const data = initData(app)
   app.setContext(Contexts.SLACK, Lifespans.END, {})
+  app.setContext(Contexts.FACEBOOK, Lifespans.END, {})
+  app.setContext(Contexts.BUG, Lifespans.DEFAULT, {})
   const msg = "I see...anything else about this problem you can tell me about so we can fix it asap and get back to you."
   app.ask(msg)
 }
 
 const bugFollowup = (app) => {
   const data = initData(app)
-  console.log(app)
+  console.log('DATA -> ', app)
+  const msg = "Thank you! I will find a solution asap"
+  app.ask(msg)
 }
 
 const actionMap = new Map()
