@@ -112,7 +112,6 @@ const inputUnknown = (app) => {
 
 const reportBug = (app) => {
   const data = initData(app)
-  console.log('DATA -> ', data)
   app.setContext(Contexts.SLACK, Lifespans.END, {})
   app.setContext(Contexts.FACEBOOK, Lifespans.END, {})
   app.setContext(Contexts.BUG, Lifespans.DEFAULT, {})
@@ -121,10 +120,8 @@ const reportBug = (app) => {
 }
 
 const bugFollowup = (app) => {
-  console.log(app);
   const data = initData(app)
-  console.log('DATA -> ', data)
-  const msg = "Thank you! I will find a solution asap"
+  const msg = "Thank you! We created the issue and contacted our developers. In the meantime, please check out https://www.dashbot.io/docs for more info!"
   app.ask(msg)
 }
 
